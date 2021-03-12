@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RestController;
 
 import myhotel.authservice.models.AuthenticationRequest;
+import myhotel.authservice.models.AuthenticationResponse;
 import myhotel.authservice.services.CustomUserDetailsService;
 import myhotel.authservice.util.JwtTokenProvider;
 
@@ -36,6 +37,6 @@ public class JwtAuthControllerImpl implements JwtAuthController {
 		final UserDetails userDetails = customUserDetailsService
 				.loadUserByUsername(authenticationRequest.getUserName());
 		final String jwt = jwtTokenProvider.generateToken(userDetails);
-		return new ResponseEntity<>(jwt, HttpStatus.OK);
+		return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.OK);
 	}
 }
